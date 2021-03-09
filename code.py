@@ -1,10 +1,15 @@
+import os
+
 import requests
 import bs4
 
-URL         = "https://s.amizone.net/"
-URL_LOGIN   = "https://s.amizone.net/"
-username    = "Your id"
-password    = "Your password"
+from dotenv import load_dotenv
+load_dotenv()
+
+URL = os.getenv('URL')
+URL_LOGIN = os.getenv('URL_LOGIN')
+username = os.getenv('USERNAME')
+password = os.getenv('PASSWORD')
 
 class Cookies:
     def saveCookie(self,requestsCookieJar):
@@ -21,7 +26,7 @@ class Cookies:
             "_Password": pwd,
             "__RequestVerificationToken": rvt
         }
-        logged = s.post(URL_LOGIN,data=data)
+        logged = s.post(URL_LOGIN, data=data)
         self.saveCookie(s.cookies)
 
 r = requests.Session()
