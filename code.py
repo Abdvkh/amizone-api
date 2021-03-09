@@ -1,8 +1,8 @@
 import requests
 import bs4
 
-URL         = "https://student.amizone.net/"
-URL_LOGIN   = "https://student.amizone.net/Login/Login"
+URL         = "https://s.amizone.net/"
+URL_LOGIN   = "https://s.amizone.net/"
 username    = "Your id"
 password    = "Your password"
 
