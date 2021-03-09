@@ -10,7 +10,7 @@ class Cookies:
     def saveCookie(self,requestsCookieJar):
         self.cookies=requestsCookieJar
 
-    def login(self,user,pwd):
+    def login(self, user, pwd):
         s= requests.Session()
         s.headers.update({"Referer":URL})
         defaultPage=s.get(URL)
