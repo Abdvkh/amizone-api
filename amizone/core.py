@@ -258,6 +258,9 @@ class Amizone:
                 self.get_all_information()
             )
 
+    def update_local_information(self, db_type='JSON'):
+        self.save_all_information(db_type)
+
 
 if __name__ == "__main__":
     username = os.getenv('USERNAME')
