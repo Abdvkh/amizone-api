@@ -1,7 +1,7 @@
 import os
 import time
 
-from database import JSONDatabase
+from .database import JSONDatabase
 
 import requests
 import bs4
