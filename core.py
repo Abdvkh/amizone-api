@@ -54,6 +54,13 @@ class Amizone:
 
             self.save_all_information()
 
+    def update(self):
+        JSONDatabase.remove(self.username)
+        self.c.login(self.username, self.password)
+        self.r.cookies = self.c.cookies
+
+        self.save_all_information()
+
     def get_profile(self):
         result = {}
 
@@ -207,14 +214,14 @@ class Amizone:
             course_code = [x.text.strip() for x in b.find_all(attrs={"class": "course-code"})]
             course_teacher = [c.text.strip() for c in b.find_all(attrs={'class': "course-teacher"})]
             class_location = [x.text.strip() for x in b.find_all(attrs={"class": "class-loc"})]
-            exam_time = [x.text.strip() for x in b.find_all(attrs={"class": "class-time"})]
+            class_time = [x.text.strip() for x in b.find_all(attrs={"class": "class-time"})]
 
             for i in range(len(course_code)):
                 result.append({
                     'course_code': course_code[i],
                     'course_teacher': course_teacher[i],
                     'class_location': class_location[i],
-                    'exam_time': exam_time[i],
+                    'class_time': class_time[i],
                 })
 
         return result
