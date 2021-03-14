@@ -11,22 +11,22 @@ class JSONDatabase:
         if not os.path.exists(DATABASE_PATH):
             os.makedirs(DATABASE_PATH)
 
-        file = open(DATABASE_PATH + username + '.json', 'w+')
+        file = open(DATABASE_PATH + str(username) + '.json', 'w+')
 
         json.dump(information, file)
 
     @staticmethod
     def information_exists(username):
-        return os.path.exists(DATABASE_PATH + username + '.json')
+        return os.path.exists(DATABASE_PATH + str(username) + '.json')
 
     @staticmethod
     def get(username, key):
-        file = open(DATABASE_PATH + username + '.json', 'r')
+        file = open(DATABASE_PATH + str(username) + '.json', 'r')
         return json.load(file).get(key)
 
     @staticmethod
     def set(username, key, value):
-        filename = DATABASE_PATH + username + '.json'
+        filename = DATABASE_PATH + str(username) + '.json'
 
         file = open(filename, 'r')
 
