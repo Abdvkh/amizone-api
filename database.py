@@ -5,6 +5,9 @@ DATABASE_PATH = os.getenv('JSON_DATABASE_PATH', 'database/')
 
 
 class JSONDatabase:
+    @staticmethod
+    def remove(username):
+        os.remove(DATABASE_PATH + str(username) + '.json')
 
     @staticmethod
     def store_user(username, information):
