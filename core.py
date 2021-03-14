@@ -1,6 +1,7 @@
 import os
-import json
 import time
+
+from database import JSONDatabase
 
 import requests
 import bs4
@@ -11,29 +12,6 @@ load_dotenv()
 
 URL = os.getenv('URL', 'https://s.amizone.net/')
 URL_LOGIN = os.getenv('URL_LOGIN', 'https://s.amizone.net/')
-
-
-class JSONDatabase:
-    DATABASE_PATH = os.getenv('JSON_DATABASE_PATH', 'database/')
-
-    @classmethod
-    def store_user(self, username, information):
-
-        if not os.path.exists(self.DATABASE_PATH):
-            os.makedirs(self.DATABASE_PATH)
-
-        file = open(self.DATABASE_PATH + username + '.json', 'w+')
-
-        json.dump(information, file)
-
-    @classmethod
-    def information_exists(self, username):
-        return os.path.exists(self.DATABASE_PATH + username + '.json')
-
-    @classmethod
-    def get(self, username, key):
-        file = open(self.DATABASE_PATH + username + '.json', 'r')
-        return json.load(file).get(key)
 
 
 class Cookies:
@@ -67,11 +45,11 @@ class Amizone:
         self.r.headers.update({"Referer": URL})
         self.c = Cookies()
 
-        self.login(username, password)
+        self.login()
 
-    def login(self, username, password):
+    def login(self):
         if not JSONDatabase.information_exists(self.username):
-            self.c.login(username, password)
+            self.c.login(self.username, self.password)
             self.r.cookies = self.c.cookies
 
             self.save_all_information()
@@ -139,9 +117,8 @@ class Amizone:
             'combined_results': []
         }
 
-
         if JSONDatabase.information_exists(self.username):
-            result = JSONDatabase.get(self.username, 'results')
+            results = JSONDatabase.get(self.username, 'results')
         else:
             a = self.r.get(URL + "Examination/Examination?X-Requested-With=XMLHttpRequest")
             b = bs4.BeautifulSoup(a.content, 'html.parser')
