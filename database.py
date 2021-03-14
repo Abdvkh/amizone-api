@@ -23,3 +23,13 @@ class JSONDatabase:
     def get(username, key):
         file = open(DATABASE_PATH + username + '.json', 'r')
         return json.load(file).get(key)
+
+    @staticmethod
+    def set(username, key, value):
+        filename = DATABASE_PATH + username + '.json'
+
+        file = open(filename, 'r')
+
+        data = json.load(file)
+        data[key] = value
+        json.dump(data, open(filename, 'w+'))
