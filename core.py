@@ -72,8 +72,9 @@ class Amizone:
     def login(self, username, password):
         if not JSONDatabase.information_exists(self.username):
             self.c.login(username, password)
-            self.save_all_information()
             self.r.cookies = self.c.cookies
+
+            self.save_all_information()
 
     def get_profile(self):
         result = {}
